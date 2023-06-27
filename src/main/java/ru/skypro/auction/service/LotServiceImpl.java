@@ -54,4 +54,5 @@ public class LotServiceImpl implements LotService{
         Bid bid = new Bid(bidDTO.getBidderName());
         bidRepository.save(bid);
     }
+
 }
