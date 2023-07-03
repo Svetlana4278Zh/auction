@@ -1,42 +1,42 @@
 package ru.skypro.auction.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.skypro.auction.entity.Bid;
+
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class FullLot {
-    private Integer id;
+    private int id;
 
     private Status status;
 
-    @NotBlank
-    @Size(min = 3, max = 64)
     private String title;
 
-    @NotBlank
-    @Size(min = 1, max = 4096)
     private String description;
 
-    @NotNull
-    @Min(1)
-    private Integer startPrice;
+    private int startPrice;
 
-    @NotNull
-    @Min(1)
-    private Integer bidPrice;
+    private int bidPrice;
 
-    private  Integer currentPrice;
+    private  int currentPrice;
 
     private BidDTO lastBid;
 
+
+    public FullLot(int id, Status status, String title, String description, int startPrice, int bidPrice) {
+        this.id = id;
+        this.status = status;
+        this.title = title;
+        this.description = description;
+        this.startPrice = startPrice;
+        this.bidPrice = bidPrice;
+    }
 }

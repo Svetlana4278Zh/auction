@@ -4,13 +4,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.skypro.auction.dto.BidDTO;
-import ru.skypro.auction.dto.FullLot;
 import ru.skypro.auction.entity.Bid;
 
 import java.util.Optional;
 
 public interface BidRepository extends JpaRepository<Bid, Integer> {
     Optional<Bid> findFirstByLot_IdOrderByDateTimeAsc(int lotId);
+
+    Optional<Bid> findFirstByLot_IdOrderByDateTimeDesc(int lotId);
 
     @Query("""
             SELECT new ru.skypro.auction.dto.BidDTO(b.name, b.dateTime) FROM Bid b WHERE b.name = (

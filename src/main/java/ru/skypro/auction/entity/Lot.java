@@ -1,12 +1,16 @@
 package ru.skypro.auction.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.skypro.auction.dto.Status;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "lot")
 public class Lot {
@@ -29,4 +33,12 @@ public class Lot {
 
     @Column(name = "bid_price",nullable = false)
     private int bidPrice;
+
+    public Lot(Status status, String title, String description, Integer startPrice, Integer bidPrice) {
+        this.status = status;
+        this.title = title;
+        this.description = description;
+        this.startPrice = startPrice;
+        this.bidPrice = bidPrice;
+    }
 }

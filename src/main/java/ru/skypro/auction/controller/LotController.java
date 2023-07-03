@@ -3,12 +3,11 @@ package ru.skypro.auction.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.auction.dto.BidDTO;
-import ru.skypro.auction.dto.CreateLot;
-import ru.skypro.auction.dto.FullLot;
-import ru.skypro.auction.dto.LotDTO;
+import ru.skypro.auction.dto.*;
 import ru.skypro.auction.service.LotService;
 
 import java.util.List;
@@ -41,26 +40,31 @@ public class LotController {
 
     @PostMapping("{id}/bid")
     public void createBid(@PathVariable int id, @RequestBody @Valid BidDTO bid){
-        lotService.createBid(id,bid);
+        lotService.createBid(id, bid);
     }
 
     @PostMapping("{id}/stop")
-    public void stopt(@PathVariable int id){
-
+    public void stop(@PathVariable int id){
+        lotService.stop(id);
     }
 
     @PostMapping
-    public LotDTO createLot(@RequestBody @Valid CreateLot lot){
-        return null;
+    public LotDTO createLot(@RequestBody @Valid CreateLot newLot){
+        return lotService.createLot(newLot);
     }
 
     @GetMapping
-    public List<LotDTO> findLots(){
-        return null;
+    public List<LotDTO> findLots(@RequestParam(value = "status", required = false) Status status,
+                                 @RequestParam(value = "page",required = false, defaultValue = "0") int page){
+        return lotService.findLots(status, page);
     }
 
     @GetMapping("/export")
-    public ResponseEntity<Resource> getCSVFile(){
-        return null;
+    public ResponseEntity<byte[]> getCSVFile(){
+        byte[] result = lotService.getCSVFile();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header(HttpHeaders.CONTENT_TYPE, "text/csv")
+                .body(result);
     }
 }
