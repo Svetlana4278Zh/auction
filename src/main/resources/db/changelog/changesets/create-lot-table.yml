@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-lot-table
+      author: Svetlana
+      changes:
+        - createTable:
+            tableName: lot
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(4096)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_price
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bid_price
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(7)
+                  constraints:
+                    nullable: false

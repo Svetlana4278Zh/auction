@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-bid-table
+      author: Svetlana
+      changes:
+        - createTable:
+            tableName: bid
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_time
+                  type: TIMESTAMP(6) WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lot_id
+                  type: INT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: lot_id
+            baseTableName: bid
+            constraintName: FK_BID_LOT_ID
+            referencedColumnNames: id
+            referencedTableName: lot
